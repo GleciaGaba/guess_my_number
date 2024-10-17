@@ -6,10 +6,14 @@
 //haut de votre code, créez une const « secretNumber » qui créera un nombre
 //aléatoire de 1 à 20.
 
-const secretNumber = Math.trunc(Math.random() * 20) + 1;
-document.querySelector('.number').textContent = secretNumber;
+let secretNumber = Math.trunc(Math.random() * 20) + 1;
 
 let score = 20;
+
+//Nous allons maintenant créer la logique du HighScores. Créez
+//tout d’abord sous la variable score, une variable « highScore »
+//initialisé à 0.
+let highScore = 0;
 
 //Un Event est une action qui se passe sur la page, par
 //exemple une action au clic, une action quand la souris se
@@ -61,10 +65,17 @@ check.addEventListener('click', event => {
     //La style du background de l’élément body devra être #60b347 et
     //la largeur de la fenêtre contenant le « secretNumber » devra être
     //30rem.
+    // Cachez à présent la valeur du « secretNumber » et
+    //affichez-la simplement , en cas de victoire du joueur.
+    document.querySelector('.number').textContent = secretNumber;
     document.querySelector('body').style.backgroundColor = '#60b347';
     document.querySelector('.number').style.width = '30rem';
 
     message.textContent = 'Correct Number !';
+
+    if (score > highScore) {
+      document.querySelector('.highscore').textContent = score;
+    }
   } else if (guess > secretNumber) {
     message.textContent = 'Too high !';
     score--;
@@ -101,5 +112,24 @@ check.addEventListener('click', event => {
 //Restaurez les conditions initiales des champs de message, de number, de score et de guess
 //Restaurez également la couleur d'arrière-plan d'origine (#222) et la largeur du number (15rem)
 
-const again = document.querySelector('.btn again');
-again.addEventListener('click', function () {});
+document.querySelector('.again').addEventListener('click', function () {
+  score = 20;
+  secretNumber = Math.trunc(Math.random() * 20) + 1;
+  message.textContent = 'Start guessing...';
+  document.querySelector('.score').textContent = score;
+  document.querySelector('.guess').value = '';
+  document.querySelector('body').style.backgroundColor = '#222';
+  document.querySelector('.number').style.width = '15rem';
+  document.querySelector('.number').textContent = '?';
+});
+
+//Implement Highscores
+//JavaScript dans le navigateur
+//DOM & Events
+
+//Maintenant, l’objectif est de mettre à jour le meilleur score du
+//joueur dans highScore.
+
+//Il faudra pour cela créer un if dans le
+//bloc où le jour a gagné. La condition est simple, si le score du
+//joueur est supérieur au highscore alors …
